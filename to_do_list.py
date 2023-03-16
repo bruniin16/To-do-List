@@ -14,14 +14,18 @@ def remove_item():
     item_list.delete(selec[0])
 
 def completed():
-    pass
+    selec = item_list.curselection()
+    if selec:
+        completed_list.insert(END, item_list.get(selec))
+        item_list.delete(selec[0])
+
 
 
 main = Tk()
 main.title("to-do list")
 main.geometry("800x500+700+300")
 main.config(bg = "#242323")
-main.resizable(width = False, height = False)
+#main.resizable(width = False, height = False)
 
 #campo para adicionar um item
 item_entry = Entry(main, bg=corbg, fg="white")
@@ -44,5 +48,10 @@ remove_button.pack()
 #botão para completar tarefas
 completed_button = Button(main, text="Completed", command=completed, bg=corbg, fg="white", relief="solid")
 completed_button.pack()
+
+#lista de tarefas completadas
+completed_list = Listbox(main, height=20, width=40, bg=corbg, fg="white", relief="solid", highlightthickness=2)
+completed_list.configure(highlightbackground="purple")
+completed_list.pack()
 
 main.mainloop()
