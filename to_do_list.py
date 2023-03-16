@@ -26,8 +26,8 @@ def completed():
 main = Tk()
 main.title("to-do list")
 main.geometry("665x550+700+300")
-main.config(bg = "#242323")
-#main.resizable(width = False, height = False)
+main.config(bg = corbg)
+main.resizable(width = False, height = False)
 
 #campo para adicionar um item
 item_entry = Entry(main, bg=corbg, fg="white", width=30, font="calibri 12", relief="solid")
@@ -54,5 +54,11 @@ completed_button.place(x=235, y=475)
 completed_list = Listbox(main, height=15, width=35, bg=corbg, fg="white", relief="solid", highlightthickness=2, font="calibri")
 completed_list.configure(highlightbackground="purple")
 completed_list.place(x=350, y=160)
+
+#Labels
+todo_label = Label(main, text="To Do", bg=corbg, fg="white", font="courier 15 bold")
+todo_label.place(x=30, y=120)
+completed_label = Label(main, text="Completed", bg=corbg, fg="white", font="courier 15 bold")
+completed_label.place(x=350, y=120)
 
 main.mainloop()
