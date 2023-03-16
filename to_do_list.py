@@ -8,10 +8,12 @@ def add_item():
     if item:
         item_list.insert(END, " - " + item)
         item_entry.delete(0, END)
+        save()
 
 def remove_item():
     selec = item_list.curselection()
     item_list.delete(selec[0])
+    save()
 
 def completed():
     selec = item_list.curselection()
@@ -20,8 +22,33 @@ def completed():
         completed_list.insert(END, item_list.get(selec))
         item_list.delete(selec[0])
         completed_list["state"] = "disabled"
+        save()
 
+def save():
+    items = item_list.get(0, END)
+    with open("items.json", "w") as f:
+        json.dump(items, f)
+    
+    complete = completed_list.get(0, END)
+    with open("completed.json", "w") as f:
+        json.dump(complete, f)
 
+def load():
+    try:
+        with open("items.json", "r") as f:
+            items = json.load(f)
+        for item in items:
+            item_list.insert(END, item)
+    except FileNotFoundError:
+        pass
+
+    try:
+        with open("completed.json", "r") as f:
+            complete = json.load(f)
+        for item in complete:
+            completed_list.insert(END, item)
+    except FileNotFoundError:
+        pass
 
 main = Tk()
 main.title("to-do list")
@@ -61,4 +88,5 @@ todo_label.place(x=30, y=120)
 completed_label = Label(main, text="Completed", bg=corbg, fg="white", font="courier 15 bold")
 completed_label.place(x=350, y=120)
 
+load()
 main.mainloop()
