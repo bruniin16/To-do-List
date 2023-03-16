@@ -15,13 +15,16 @@ def remove_item():
     item_list.delete(selec[0])
     save()
 
+def remove_completed():
+    selec = completed_list.curselection()
+    completed_list.delete(selec[0])
+    save()
+
 def completed():
     selec = item_list.curselection()
     if selec:
-        completed_list["state"] = "normal"
         completed_list.insert(END, item_list.get(selec))
         item_list.delete(selec[0])
-        completed_list["state"] = "disabled"
         save()
 
 def save():
@@ -73,12 +76,15 @@ item_list.place(x=30, y=160)
 remove_button = Button(main, text="Remove Task", command=remove_item, bg=corbg, fg="white", relief="solid", font="arial 10 bold")
 remove_button.place(x=30, y=475)
 
+removecomp_button = Button(main, text="Clear Completed Task", command=remove_completed, bg=corbg, fg="white", relief="solid", font="arial 10 bold")
+removecomp_button.place(x=350, y=475)
+
 #botão para completar tarefas
 completed_button = Button(main, text="Completed", command=completed, bg=corbg, fg="white", relief="solid", font="arial 10 bold")
 completed_button.place(x=235, y=475)
 
 #lista de tarefas completadas
-completed_list = Listbox(main, height=15, width=35, bg=corbg, fg="white", relief="solid", highlightthickness=2, font="calibri")
+completed_list = Listbox(main, height=15, width=35, bg=corbg, fg="grey", relief="solid", highlightthickness=2, font="calibri")
 completed_list.configure(highlightbackground="purple")
 completed_list.place(x=350, y=160)
 
